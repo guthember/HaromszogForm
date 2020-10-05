@@ -12,9 +12,9 @@ namespace Haromszogek
 {
   public partial class frmFo : Form
   {
-    private int aOldal;
-    private int bOldal;
-    private int cOldal;
+    private double aOldal;
+    private double bOldal;
+    private double cOldal;
 
 
     public frmFo()
@@ -36,27 +36,36 @@ namespace Haromszogek
 
     private void btnSzamol_Click(object sender, EventArgs e)
     {
-      aOldal = Convert.ToInt32(tbAoldal.Text);
-      bOldal = Convert.ToInt32(tbBoldal.Text);
-      cOldal = Convert.ToInt32(tbColdal.Text);
-
-      if (aOldal == 0 || bOldal == 0 || cOldal == 0)
+      try
       {
-        MessageBox.Show("Nem lehet 0 a háromszög oldala!", "Hiba",
-          MessageBoxButtons.OK,
-          MessageBoxIcon.Error);
-      }
-      else
-      {
-        var h = new Haromszog(aOldal, bOldal, cOldal);
-        
-        List<string> adatok = h.AdatokSzoveg();
+        aOldal = Convert.ToDouble(tbAoldal.Text);
+        bOldal = Convert.ToDouble(tbBoldal.Text);
+        cOldal = Convert.ToDouble(tbColdal.Text);
 
-        foreach (var a in adatok)
+        if (aOldal == 0 || bOldal == 0 || cOldal == 0)
         {
-          lbHarmszogLista.Items.Add(a);
+          MessageBox.Show("Nem lehet 0 a háromszög oldala!", "Hiba",
+            MessageBoxButtons.OK,
+            MessageBoxIcon.Error);
         }
+        else
+        {
+          var h = new Haromszog(aOldal, bOldal, cOldal);
 
+          List<string> adatok = h.AdatokSzoveg();
+
+          foreach (var a in adatok)
+          {
+            lbHarmszogLista.Items.Add(a);
+          }
+
+        }
+      }
+      catch (Exception ex)
+      {
+        MessageBox.Show("Számot adj meg!","Hiba",MessageBoxButtons.OK,
+          MessageBoxIcon.Error);
+        tbAoldal.Focus();
       }
     }
 
