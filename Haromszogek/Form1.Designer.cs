@@ -170,7 +170,6 @@
       // 
       // ofdMegnyitas
       // 
-      this.ofdMegnyitas.FileName = "openFileDialog1";
       this.ofdMegnyitas.Filter = "Text files|*.txt";
       this.ofdMegnyitas.InitialDirectory = "C:\\Users\\guthe\\source\\repos\\Haromszogek\\Haromszogek\\bin\\Debug";
       // 

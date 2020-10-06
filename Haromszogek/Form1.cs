@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -84,7 +85,41 @@ namespace Haromszogek
     private void btnFajlbol_Click(object sender, EventArgs e)
     {
       lbHarmszogLista.Items.Clear();
-      ofdMegnyitas.ShowDialog();
+      if (ofdMegnyitas.ShowDialog() == DialogResult.OK)
+      {
+        try
+        {
+          StreamReader file = new StreamReader(ofdMegnyitas.FileName);
+          try
+          {
+            while (!file.EndOfStream)
+            {
+              string sor = file.ReadLine();
+              var h = new Haromszog(sor);
+
+              lbHarmszogLista.Items.Add("Fáljból olvasás:");
+              foreach (var a in h.AdatokSzoveg())
+              {
+                lbHarmszogLista.Items.Add(a);
+              }
+              lbHarmszogLista.Items.Add("-------------------");
+            }
+            file.Close();
+          }
+          catch (Exception ex)
+          {
+            MessageBox.Show(ex.Message);
+          }
+          finally
+          {
+            file.Close();
+          }
+        }
+        catch (Exception ex)
+        {
+          MessageBox.Show(ex.Message);
+        }
+      }
     }
   }
 }
